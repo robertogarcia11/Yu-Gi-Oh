@@ -5,7 +5,7 @@ import '../styles/global.css';
 
 
 // data source
-const source = '';
+const source = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
 // fetch the data
 const res = await fetch(source); 
 // store retreived data
@@ -25,15 +25,26 @@ const data = await res.json();
 	</head>
 	<body>
 		
-		<header class="masthead">
-			<h1 class="site-title">Gallery</h1>
+		<header class="site-title">
+			<h1>Yu-Gi-Oh TCG</h1>
 		</header>
 
-		<main id="content" class="main-area">
+		<main class="main-area">
 
-			<ul class="cards">
+			<ul id="cards">
 		  
 				<!-- Your API Data -->
+				{
+					data.data.map((card) => (
+						<li>
+							<img src={card.card_images[0].image_url} alt="" />
+							<h1>Card Name: {card.name}</h1>
+							<p>TCG Market Price: ${card.card_prices[0].tcgplayer_price}</p>
+							<p>Type: {card.type}</p>
+							<p>Description: {card.desc}</p>
+						</li>
+					))
+				}
 
 		  
 			</ul>
